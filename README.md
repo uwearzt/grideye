@@ -12,7 +12,7 @@ Rust driver for Grid-EYE / Panasonic AM88(33)
 
 Licensed under either of
 
-- Apache License, Version 2.0 ([LICENSE](LICENSE) or
+- Apache License, Version 2.0 [LICENSE](LICENSE) or
   [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 
 ## Resources
