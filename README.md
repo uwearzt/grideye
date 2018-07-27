@@ -1,6 +1,6 @@
 # [Grid-EYE](https://crates.io/crates/grideye)
 
-Rust driver for Grid-EYE / Panasonic AM88(33)
+Rust driver for Grid-EYE / Panasonic AMG88(33)
 
 ## Documentation
 
