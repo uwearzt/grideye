@@ -8,6 +8,14 @@ Rust driver for Grid-EYE / Panasonic AMG88(33)
 
 ## TODO
 
+- add interrupt API
+- add interrupts to Raspberry Pi example
+- STM32 example
+
+## Done
+
+- get the primary sensor readouts
+
 ## License
 
 Licensed under either of

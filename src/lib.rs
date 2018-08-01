@@ -18,7 +18,10 @@
 
 #![no_std]
 
+extern crate bit_field;
 extern crate embedded_hal as hal;
+
+use bit_field::BitField;
 
 use hal::blocking::delay::DelayMs;
 use hal::blocking::i2c::{Read, Write, WriteRead};
@@ -36,6 +39,7 @@ pub enum Address {
     Alternate = 0x68,
 }
 
+#[allow(dead_code)]
 #[derive(Copy, Clone)]
 enum Register {
     PowerControl = 0x00,
@@ -58,6 +62,21 @@ enum Register {
     TemperatureStart = 0x80,
 }
 
+#[derive(Copy, Clone)]
+pub enum Power {
+    Wakeup = 0x00,
+    Sleep = 0x10,
+    Standby60Seconds = 0x20,
+    Standby10Seconds = 0x21,
+}
+
+#[derive(Copy, Clone)]
+pub enum Framerate {
+    Fps10 = 0x00,
+    Fps1 = 0x01,
+}
+
+#[allow(dead_code)]
 pub struct GridEye<I2C, D> {
     i2c: I2C,
     delay: D,
@@ -78,56 +97,96 @@ where
         }
     }
 
+    // ---- Sensor array ---------------------------------------------------------------------------
     /// Get pixel value for pixel 0-63 as raw value
     pub fn get_pixel_temperature_raw(&mut self, pixel: u8) -> Result<u16, Error<E>> {
         let pixel_low = Register::TemperatureStart as u8 + (2 * pixel);
         self.get_register_as_u16(pixel_low)
     }
 
-    /// Get pixel value for pixel 0-63 as raw value
+    /// Get pixel value for pixel 0-63 as celsius
     pub fn get_pixel_temperature_celsius(&mut self, pixel: u8) -> Result<f32, Error<E>> {
         let temperature = self.get_pixel_temperature_raw(pixel)?;
-        // temperature is reported as 12-bit twos complement
+
         // check if temperature is negative
-  /*if(temperature & (1 << 11))
-  {
-    // if temperature is negative, mask out the sign byte and 
-    // make the float negative
-    temperature &= ~(1 << 11);
-    temperature = temperature * -1;
-  }*/
-        let celsius: f32 = temperature as f32 * 0.25;
-        Ok(celsius)
+        if temperature.get_bit(11) == false {
+            let celsius: f32 = temperature as f32 * 0.25;
+            Ok(celsius)
+        } else {
+            let mut bnot = !temperature;
+            let temp = *bnot.set_bits(11..16, 0b00000);
+            let celsius: f32 = temp as f32 * -0.25;
+            Ok(celsius)
+        }
     }
 
-    /// power control
-    pub fn wakeup(&mut self) -> Result<(), Error<E>> {
-        self.set_register(Register::PowerControl, 0x00)
+    // ---- Device temperature ---------------------------------------------------------------------
+    pub fn get_device_temperature_raw(&mut self) -> Result<u16, Error<E>> {
+        self.get_register_as_u16(Register::ThermistorLsb as u8)
     }
 
-    pub fn sleep(&mut self) -> Result<(), Error<E>> {
-        self.set_register(Register::PowerControl, 0x10)
+    pub fn get_device_temperature_celsius(&mut self) -> Result<f32, Error<E>> {
+        let temperature = self.get_device_temperature_raw()?;
+
+        // check if temperature is negative
+        if temperature.get_bit(11) == false {
+            let celsius: f32 = temperature as f32 * 0.0625;
+            Ok(celsius)
+        } else {
+            let mut bnot = !temperature;
+            let temp = *bnot.set_bits(11..16, 0b00000);
+            let celsius: f32 = temp as f32 * -0.0625;
+            Ok(celsius)
+        }
     }
 
-    pub fn standby60seconds(&mut self) -> Result<(), Error<E>> {
-        self.set_register(Register::PowerControl, 0x20)
+    // ---- framerate ------------------------------------------------------------------------------
+    pub fn set_framerate(&mut self, framerate: Framerate) -> Result<(), Error<E>> {
+        self.set_register(Register::Framerate, framerate as u8)
+    }
+    pub fn get_framerate(&mut self) -> Result<(Framerate), Error<E>> {
+        let fps = self.get_register(Register::Framerate as u8)?;
+        if fps == 0 {
+            Ok(Framerate::Fps10)
+        } else {
+            Ok(Framerate::Fps1)
+        }
     }
 
-    pub fn standby10seconds(&mut self) -> Result<(), Error<E>> {
-        self.set_register(Register::PowerControl, 0x21)
+    // ---- other ----------------------------------------------------------------------------------
+    pub fn power(&mut self, power: Power) -> Result<(), Error<E>> {
+        self.set_register(Register::PowerControl, power as u8)
     }
 
+    // ---- interrupt ------------------------------------------------------------------------------
+
+    // ---- internal -------------------------------------------------------------------------------
     fn set_register(&mut self, register: Register, value: u8) -> Result<(), Error<E>> {
         let cmd_bytes = [register as u8, value];
         self.i2c
             .write(self.address as u8, &cmd_bytes)
             .map_err(Error::I2c)
     }
+    fn get_register(&mut self, register: u8) -> Result<u8, Error<E>> {
+        let cmd = [register];
+        self.i2c
+            .write(self.address as u8, &cmd)
+            .map_err(Error::I2c)?;
+        let mut buffer = [0];
+        self.i2c
+            .read(self.address as u8, &mut buffer)
+            .map_err(Error::I2c)?;
+        Ok(buffer[0])
+    }
     fn get_register_as_u16(&mut self, register: u8) -> Result<u16, Error<E>> {
         let cmd = [register];
-        self.i2c.write(self.address as u8, &cmd).map_err(Error::I2c)?;
+        self.i2c
+            .write(self.address as u8, &cmd)
+            .map_err(Error::I2c)?;
         let mut buffer = [0, 0];
-        self.i2c.read(self.address as u8, &mut buffer).map_err(Error::I2c)?;
+        self.i2c
+            .read(self.address as u8, &mut buffer)
+            .map_err(Error::I2c)?;
         Ok(((buffer[1] as u16) << 8) + (buffer[0] as u16))
     }
 }
