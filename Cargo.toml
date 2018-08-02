@@ -1,6 +1,6 @@
 [package]
 name = "grideye"
-version = "0.2.0"
+version = "0.1.1"
 authors = ["Uwe Arzt <mail@uwe-arzt.de>"]
 categories = ["embedded", "hardware-support", "no-std"]
 description = "Rust driver for Grid-EYE / Panasonic AMG88(33)"

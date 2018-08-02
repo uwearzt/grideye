@@ -29,6 +29,7 @@ fn main() -> Result<(), std::io::Error> {
     let mut grideye = GridEye::new(i2c, Delay, Address::Standard);
     grideye.power(Power::Wakeup).unwrap();
 
+    // get the device temperature
     println!(
         "device temperature: {}",
         grideye.get_device_temperature_celsius().unwrap()

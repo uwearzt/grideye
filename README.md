@@ -6,15 +6,21 @@ Rust driver for Grid-EYE / Panasonic AMG88(33)
 
  Read the detailed documentation [here](https://docs.rs/grideye/)
 
-## TODO
+## Build
 
-- add interrupt API
-- add interrupts to Raspberry Pi example
-- STM32 example
+Rust nightly is needed to compile this crate.
+
+## ToDo
+
+- [ ] add interrupts to Raspberry Pi example
+- [ ] API documentation
+- [ ] STM32 example
+- [ ] refactoring
 
 ## Done
 
-- get the primary sensor readouts
+- [x] get the primary sensor readouts
+- [x] add complete API
 
 ## License
 
@@ -25,5 +31,5 @@ Licensed under either of
 
 ## Resources
 
-- [Datasheet](https://cdn.sparkfun.com/assets/4/1/c/0/1/Grid-EYE_Datasheet.pdf)
+- [Datasheet](https://industrial.panasonic.com/cdbs/www-data/pdf/ADI8000/ADI8000C59.pdf)
 - [Evaluation Board](https://www.sparkfun.com/products/14607)
