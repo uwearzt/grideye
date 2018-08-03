@@ -12,6 +12,7 @@ Rust nightly is needed to compile this crate.
 
 ## ToDo
 
+- [ ] Travis CI
 - [ ] add interrupts to Raspberry Pi example
 - [ ] API documentation
 - [ ] STM32 example
