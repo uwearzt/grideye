@@ -1,5 +1,9 @@
 # [Grid-EYE](https://crates.io/crates/grideye)
 
+[![Apache licensed](https://img.shields.io/badge/license-Apache-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
+[![Build Status](https://travis-ci.org/uwearzt/grideye.svg?branch=master)](https://travis-ci.org/uwearzt/grideye)
+[![crates.io](https://meritbadge.herokuapp.com/grideye)](https://crates.io/crates/grideye)
+
 Rust driver for Grid-EYE / Panasonic AMG88(33)
 
 ## Documentation
@@ -12,7 +16,6 @@ Rust nightly is needed to compile this crate.
 
 ## ToDo
 
-- [ ] Travis CI
 - [ ] add interrupts to Raspberry Pi example
 - [ ] API documentation
 - [ ] STM32 example
@@ -22,6 +25,7 @@ Rust nightly is needed to compile this crate.
 
 - [x] get the primary sensor readouts
 - [x] add complete API
+- [x] Travis CI
 
 ## License
 
