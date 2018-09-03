@@ -238,7 +238,7 @@ where
     }
 
     pub fn set_upper_int_value_raw(&mut self, value: u16) -> Result<(), Error<E>> {
-        let bytes = value.to_bytes();
+        let bytes = value.to_le_bytes();
         self.set_register(Register::IntLevelUpperLsb, bytes[0])?;
         self.set_register(Register::IntLevelUpperMsb, bytes[1])?;
         Ok(())
@@ -249,7 +249,7 @@ where
     }
 
     pub fn set_lower_int_value_raw(&mut self, value: u16) -> Result<(), Error<E>> {
-        let bytes = value.to_bytes();
+        let bytes = value.to_le_bytes();
         self.set_register(Register::IntLevelLowerLsb, bytes[0])?;
         self.set_register(Register::IntLevelLowerMsb, bytes[1])?;
         Ok(())
@@ -260,7 +260,7 @@ where
     }
 
     pub fn set_int_hysteresis_raw(&mut self, value: u16) -> Result<(), Error<E>> {
-        let bytes = value.to_bytes();
+        let bytes = value.to_le_bytes();
         self.set_register(Register::IntLevelHystLsb, bytes[0])?;
         self.set_register(Register::IntLevelHystMsb, bytes[1])?;
         Ok(())
