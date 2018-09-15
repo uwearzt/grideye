@@ -1,6 +1,11 @@
+# ------------------------------------------------------------------------------
+# Copyright 2018 Uwe Arzt, mail@uwe-arzt.de
+# SPDX-License-Identifier: Apache-2.0
+# ------------------------------------------------------------------------------
+
 [package]
 name = "grideye"
-version = "0.2.1"
+version = "0.2.2"
 authors = ["Uwe Arzt <mail@uwe-arzt.de>"]
 categories = ["embedded", "hardware-support", "no-std"]
 description = "Rust driver for Grid-EYE / Panasonic AMG88(33)"
@@ -13,5 +18,16 @@ repository = "https://github.com/uwearzt/grideye"
 embedded-hal = "0.2.1"
 bit_field = "0.9.0"
 
+# build stm32.rs
 [dev-dependencies]
+#panic-semihosting ="0.3.0"
+#cortex-m = "0.5.3"
+#cortex-m-rt = "0.5.1"
+
+# build raspberrypi.rs
+#[target.aarch64-unknown-linux-gnu.dev-dependencies]
 linux-embedded-hal = "0.2.0"
+
+#[dependencies.stm32f4]
+#version = "0.2.2"
+#features = ["stm32f405"]

@@ -14,11 +14,26 @@ Rust driver for Grid-EYE / Panasonic AMG88(33)
 
 Rust nightly is needed to compile this crate.
 
+### Raspberry Pi
+
+```
+cargo build --example raspberrypi
+cargo run --example raspberrypi
+```
+
+### STM32
+
+The STM32 is tested on a [1bitsy](http://1bitsy.org) board with a STM32F415RGT6 CPU.
+
+```
+cargo build --example stm32 --target thumbv7em-none-eabi
+```
+
 ## ToDo
 
-- [ ] add interrupts to Raspberry Pi example
-- [ ] API documentation
 - [ ] STM32 example
+- [ ] add interrupts
+- [ ] API documentation
 - [ ] refactoring
 
 ## Done
@@ -29,10 +44,7 @@ Rust nightly is needed to compile this crate.
 
 ## License
 
-Licensed under either of
-
-- Apache License, Version 2.0 [LICENSE](LICENSE) or
-  [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
+[Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0)
 
 ## Resources
 
