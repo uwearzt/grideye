@@ -1,5 +1,5 @@
-[build]
-target = "thumbv7em-none-eabi"    
+# [build]
+# target = "thumbv7em-none-eabi"    
 
 [target.thumbv7em-none-eabi]
 runner = 'arm-none-eabi-gdb'

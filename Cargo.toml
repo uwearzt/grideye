@@ -22,15 +22,14 @@ libm = "0.1.2"
 # ------------------------------------------------------------------------------
 # build  example stm32.rs
 [dev-dependencies]
-panic-semihosting ="0.5.0"
-cortex-m = "0.5.7"
-cortex-m-rt = "0.6.3"
-libm ="0.1.2"
+# panic-semihosting ="0.5.0"
+# cortex-m = "0.5.7"
+# cortex-m-rt = "0.6.3"
 
-[dependencies.stm32f4]
-version = "0.2.3"
-features = ["stm32f405", "rt"]
+# [dependencies.stm32f4]
+# version = "0.2.3"
+# features = ["stm32f405", "rt"]
 
 # ------------------------------------------------------------------------------
 # build example raspberrypi.rs
-# linux-embedded-hal = "0.2.0"
+linux-embedded-hal = "0.2.0"
