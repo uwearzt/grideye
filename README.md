@@ -16,7 +16,7 @@ Rust nightly is needed to compile this crate.
 
 ### Raspberry Pi
 
-```
+```bash
 cargo build --example raspberrypi
 cargo run --example raspberrypi
 ```
@@ -25,8 +25,10 @@ cargo run --example raspberrypi
 
 The STM32 is tested on a [1bitsy](http://1bitsy.org) board with a STM32F415RGT6 CPU.
 
-```
+```bash
 cargo build --example stm32 --target thumbv7em-none-eabi
+JLinkGDBServer -if SWD -device STM32F415RG
+arm-none-eabi-gdb -x gdb.startup
 ```
 
 ## ToDo

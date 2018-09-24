@@ -6,9 +6,7 @@
 MEMORY
 {
   FLASH : ORIGIN = 0x08000000, LENGTH = 1024K
-  CCM :   ORIGIN = 0x10000000, LENGTH = 64K
   RAM :   ORIGIN = 0x20000000, LENGTH = 128K
 }
 
-_stack_start = ORIGIN(CCM) + LENGTH(CCM);
-_heap_size   = 1024;
+_stack_start = ORIGIN(RAM) + LENGTH(RAM);

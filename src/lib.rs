@@ -10,6 +10,7 @@
 
 extern crate bit_field;
 extern crate embedded_hal as hal;
+extern crate libm;
 
 use bit_field::BitField;
 
@@ -331,7 +332,7 @@ fn temperature_u12_to_f32_celsius(temperature: u16, factor: f32) -> f32 {
 fn temperature_f32_to_u16_celsius(mut celsius: f32) -> u16 {
        let mut neg = false;
         if celsius < 0.0 {
-            celsius = celsius.abs();
+            celsius = libm::fabsf(celsius);
             neg = true;
         }
         let mut temp = celsius as u16;

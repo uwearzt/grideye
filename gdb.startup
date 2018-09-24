@@ -1,0 +1,14 @@
+target remote localhost:2331
+monitor interface swd
+monitor endian little
+monitor reset 0
+monitor flash device = STM32F415RG
+monitor speed 1000
+monitor flash download = 1
+monitor flash breakpoints = 1
+file target/thumbv7em-none-eabi/debug/examples/stm32
+load
+monitor reg r13 = 0x00000000
+monitor reg pc = 0x00000004
+break main
+monitor reset
