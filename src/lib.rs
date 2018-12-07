@@ -6,16 +6,14 @@
 //! Driver for Panasonic AMG88(33)
 
 #![no_std]
-#![feature(int_to_from_bytes)]
 
-extern crate bit_field;
-extern crate embedded_hal as hal;
-extern crate libm;
+use embedded_hal as hal;
+use libm;
 
 use bit_field::BitField;
 
-use hal::blocking::delay::DelayMs;
-use hal::blocking::i2c::{Read, Write, WriteRead};
+use crate::hal::blocking::delay::DelayMs;
+use crate::hal::blocking::i2c::{Read, Write, WriteRead};
 
 /// Errors
 #[derive(Debug)]

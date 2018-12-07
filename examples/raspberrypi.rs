@@ -3,11 +3,10 @@
 // SPDX-License-Identifier: Apache-2.0
 // ------------------------------------------------------------------------------
 
-extern crate grideye;
-extern crate linux_embedded_hal as hal;
+use linux_embedded_hal as hal;
 
 use grideye::{Address, GridEye, Power};
-use hal::{Delay, I2cdev};
+use crate::hal::{Delay, I2cdev};
 
 use std::{thread, time};
 
