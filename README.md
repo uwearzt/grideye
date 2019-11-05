@@ -41,6 +41,7 @@ arm-none-eabi-gdb -x gdb.startup
 
 ## Done
 
+- [x] GitHub actions
 - [x] get the primary sensor readouts
 - [x] add complete API
 - [x] Travis CI
