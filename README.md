@@ -2,6 +2,7 @@
 
 [![Apache licensed](https://img.shields.io/badge/license-Apache-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 [![Build Status](https://travis-ci.org/uwearzt/grideye.svg?branch=master)](https://travis-ci.org/uwearzt/grideye)
+[![Actions Status](https://github.com/uwearzt/grideye/workflows/push_pullreq/badge.svg)](https://github.com/uwearzt/grideye/actions)
 [![crates.io](https://meritbadge.herokuapp.com/grideye)](https://crates.io/crates/grideye)
 
 Rust driver for Grid-EYE / Panasonic AMG88(33)
